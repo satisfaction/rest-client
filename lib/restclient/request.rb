@@ -153,6 +153,12 @@ module RestClient
           true
         end
       end
+
+      if net.use_ssl
+        Net::HTTP.ssl_context_accessor 'ssl_version'
+        net.ssl_version = :TLSv1_2
+      end
+      
       net.cert = @ssl_client_cert if @ssl_client_cert
       net.key = @ssl_client_key if @ssl_client_key
       net.ca_file = @ssl_ca_file if @ssl_ca_file
